@@ -25,11 +25,6 @@ public class Game {
     @Column(nullable = false, length = 100)
     private String name;
 
-    @NotBlank(message = "Enter description of game")
-    @Size(max = 500)
-    @Column(nullable = false, length = 500)
-    private String description;
-
     @NotNull(message = "Enter difficulty")
     @Min(value = 1, message = "Difficulty must be at least 1")
     @Max(value = 10, message = "Difficulty must be at most 10")
@@ -53,10 +48,9 @@ public class Game {
     public Game() {
     }
 
-    public Game(Integer id, String name, String description, Integer difficulty, Integer hours, Integer playthrough, String img) {
+    public Game(Integer id, String name, Integer difficulty, Integer hours, Integer playthrough, String img) {
         this.id = id;
         this.name = name;
-        this.description = description;
         this.difficulty = difficulty;
         this.hours = hours;
         this.playthrough = playthrough;
@@ -77,14 +71,6 @@ public class Game {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Integer getDifficulty() {
