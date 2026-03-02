@@ -37,8 +37,10 @@ public class Trophy {
     @DecimalMax(value = "100.0", inclusive = true, message = "Percentage must be at most 100")
     @Column(nullable = false)
     private Double percentage;
-
-    
+ 
+    @ManyToOne
+    @JoinColumn(name = "trophy_grade_id", nullable = false)
+    private TrophyGrade trophyGrade;
 
     @ManyToOne
     @JoinColumn(name = "game_id", nullable = false)
@@ -47,12 +49,12 @@ public class Trophy {
     public Trophy() {
     }
 
-    public Trophy(Integer id, String name, String description, Double percentage, Game game) {
+    public Trophy(Integer id, String name, String description, Double percentage, TrophyGrade trophyGrade, Game game) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.percentage = percentage;
-
+        this.trophyGrade = trophyGrade;
         this.game = game;
     }
 
@@ -86,6 +88,14 @@ public class Trophy {
 
     public void setPercentage(Double percentage) {
         this.percentage = percentage;
+    }
+
+    public TrophyGrade getTrophyGrade() {
+        return this.trophyGrade;
+    }
+
+    public void setTrophyGrade(TrophyGrade trophyGrade) {
+        this.trophyGrade = trophyGrade;
     }
 
     public Game getGame() {
