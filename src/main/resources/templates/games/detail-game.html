@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}"></head>
+<body>
+    <nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+    <div class="container mt-4">
+        
+
+        <a th:href="@{/games}" class="btn btn-secondary mb-4">← Back to Games</a>
+
+        <div class="row">
+            <div class="col-md-3">
+                <img th:src="${game.img}" alt="cover" class="img-fluid rounded shadow">
+            </div>
+            <div class="col-md-9">
+                <h1 class="display-5 fw-bold" th:text="${game.name}"></h1>
+                <hr>
+                <div class="row mt-3">
+                    <div class="col-md-4">
+                        <p class="text-muted mb-1">Difficulty</p>
+                        <p class="fs-5 fw-semibold" th:text="${game.difficulty} + '/10'"></p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="text-muted mb-1">Estimated Hours</p>
+                        <p class="fs-5 fw-semibold" th:text="${game.hours} + 'h'"></p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="text-muted mb-1">Playthroughs</p>
+                        <p class="fs-5 fw-semibold" th:text="${game.playthrough}"></p>
+                    </div>
+                </div>
+                <hr>
+                <!-- <div class="d-flex gap-2 mt-3">
+                    <a th:href="@{/games/edit/{id}(id=${game.id})}" class="btn btn-warning">Edit</a>
+                    <form th:action="@{/games/delete/{id}(id=${game.id})}" method="post">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div> -->
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="mb-3">Trophies</h2>
+            <div th:if="${game.trophies.size() == 0}" class="alert alert-warning">
+                No trophies available for this game.
+            </div>
+            <table th:if="${game.trophies.size() > 0}" class="table table-striped table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Grade</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th class="text-center">Rarity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="trophy : ${game.trophies}" th:object="${trophy}">
+                        <td>
+                            <img th:src="*{trophyGrade.img}" alt="grade" width="30" height="30">
+                        </td>
+                        <td th:text="*{name}"></td>
+                        <td th:text="*{description}"></td>
+                        <td class="text-center" th:text="*{percentage} + '%'"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</body>
+</html>

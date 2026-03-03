@@ -17,5 +17,7 @@ public class GameService {
         return gameRepository.findAll();
     }
 
-  
+    public Game findById(Integer id){
+        return gameRepository.findById(id).get();
+    }
 }

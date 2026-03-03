@@ -25,6 +25,14 @@ public class GameController {
         return "games/index.html";
     }
 
+    @GetMapping("/{id}")
+    public String show(Model model, @PathVariable Integer id) {
+
+        model.addAttribute("game", gameService.findById(id));
+
+        return "games/detail-game";
+    }
+
     
     
     
