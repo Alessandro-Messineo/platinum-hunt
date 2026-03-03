@@ -3,7 +3,9 @@ package org.lessons.java.platinum_hunt.service;
 import java.util.List;
 
 import org.lessons.java.platinum_hunt.model.Game;
+import org.lessons.java.platinum_hunt.model.Trophy;
 import org.lessons.java.platinum_hunt.repository.GameRepository;
+import org.lessons.java.platinum_hunt.repository.TrophyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,9 @@ public class GameService {
 
     @Autowired
     private GameRepository gameRepository;
+
+    @Autowired
+    private TrophyRepository trophyRepository;
     
     public List<Game> findAll(){
         return gameRepository.findAll();
@@ -26,6 +31,11 @@ public class GameService {
     }
 
      public void delete(Integer id) {
-        gameRepository.deleteById(id);
+       Game game = findById(id);
+
+       for (Trophy trophy : game.getTrophies()) {
+        trophyRepository.delete(trophy);
+       }
+       gameRepository.delete(game);
     }
 }
