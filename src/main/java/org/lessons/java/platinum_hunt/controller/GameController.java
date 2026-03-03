@@ -63,6 +63,28 @@ public class GameController {
         return "redirect:/games/" + saved.getId();
     }
     
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model) {
+
+        model.addAttribute("game", gameService.findById(id));
+        model.addAttribute("edit", true);
+
+        return "games/form-game";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String update(@Valid @ModelAttribute("game") Game formGame, BindingResult bindingResult,Model model) {
+        
+        if(bindingResult.hasErrors()){
+            model.addAttribute("edit", true);
+            return "games/form-game";
+        }
+
+        Game saved = gameService.save(formGame);
+        return "redirect:/games/" + saved.getId();
+    }
+    
+
     
     
     
