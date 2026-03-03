@@ -84,7 +84,14 @@ public class GameController {
         return "redirect:/games/" + saved.getId();
     }
     
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id) {
+       
+        gameService.delete(id);
 
+        return "redirect:/games";
+    }
+    
     
     
     

@@ -7,7 +7,7 @@
     <div class="container mt-4">
         
 
-        <a th:href="@{/games}" class="btn btn-secondary mb-4">← Back to Games</a>
+        
 
         <div class="row">
             <div class="col-md-3">
@@ -31,12 +31,13 @@
                     </div>
                 </div>
                 <hr>
-                <!-- <div class="d-flex gap-2 mt-3">
+                <div class="d-flex gap-3 mt-3">
                     <a th:href="@{/games/edit/{id}(id=${game.id})}" class="btn btn-warning">Edit</a>
                     <form th:action="@{/games/delete/{id}(id=${game.id})}" method="post">
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
-                </div> -->
+                    <a th:href="@{/games}" class="btn btn-secondary ">Back to Games</a>
+                </div>
             </div>
         </div>
 
