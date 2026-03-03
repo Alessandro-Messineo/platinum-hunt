@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/header :: header}"></head>
+
+<body>
+
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+
+                <div class="card shadow p-4">
+                    <h3 class="text-center mb-4">
+                        <span th:unless="${edit}">New Game</span>
+                        <span th:if="${edit}">Edit Game</span>
+                    </h3>
+
+                    <form th:object="${game}"
+                        th:action="${edit} ? @{/games/edit/{id}(id=*{id})} : @{/games/create}"
+                        method="post">
+
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" th:field="*{name}" class="form-control"
+                                th:classappend="${#fields.hasErrors('name')} ? ' is-invalid' : ''">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}"
+                                th:each="err : ${#fields.errors('name')}" th:text="${err}"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Difficulty (1-10)</label>
+                            <input type="number" th:field="*{difficulty}" class="form-control" min="1" max="10"
+                                th:classappend="${#fields.hasErrors('difficulty')} ? ' is-invalid' : ''">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('difficulty')}"
+                                th:each="err : ${#fields.errors('difficulty')}" th:text="${err}"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Estimated Hours</label>
+                            <input type="number" th:field="*{hours}" class="form-control" min="1"
+                                th:classappend="${#fields.hasErrors('hours')} ? ' is-invalid' : ''">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('hours')}"
+                                th:each="err : ${#fields.errors('hours')}" th:text="${err}"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Playthroughs</label>
+                            <input type="number" th:field="*{playthrough}" class="form-control" min="1"
+                                th:classappend="${#fields.hasErrors('playthrough')} ? ' is-invalid' : ''">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('playthrough')}"
+                                th:each="err : ${#fields.errors('playthrough')}" th:text="${err}"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Image URL</label>
+                            <input type="text" th:field="*{img}" class="form-control"
+                                th:classappend="${#fields.hasErrors('img')} ? ' is-invalid' : ''">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('img')}"
+                                th:each="err : ${#fields.errors('img')}" th:text="${err}"></div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <a th:href="@{/games}" class="btn btn-outline-secondary">Cancel</a>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

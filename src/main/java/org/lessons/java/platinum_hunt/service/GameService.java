@@ -20,4 +20,8 @@ public class GameService {
     public Game findById(Integer id){
         return gameRepository.findById(id).get();
     }
+
+    public Game save(Game game){
+        return gameRepository.save(game);
+    }
 }
