@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/header :: header}"></head>
+
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="card shadow p-4">
+
+                    <h3 class="text-center mb-4">
+                        <span th:unless="${edit}">New Trophy</span>
+                        <span th:if="${edit}">Edit Trophy</span>
+                    </h3>
+
+                    <form th:object="${trophy}"
+                        th:action="${edit} ? @{/trophies/edit/{id}(id=*{id})} : @{/trophies/create}" method="post">
+
+                        <input type="hidden" th:field="*{game.id}" />
+
+                        <div class="mb-3">
+                            <label class="form-label">Grade</label>
+                            <select th:field="*{trophyGrade}" class="form-select"
+                                th:classappend="${#fields.hasErrors('trophyGrade')} ? ' is-invalid' : ''">
+                                <option value="" disabled th:if="${!edit}" selected>-- Seleziona un grado --</option>
+                                <option th:each="grade : ${grades}" th:value="${grade.id}" th:text="${grade.name}">
+                                </option>
+                            </select>
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('trophyGrade')}"
+                                th:each="err : ${#fields.errors('trophyGrade')}" th:text="${err}">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" th:field="*{name}" class="form-control"
+                                th:classappend="${#fields.hasErrors('name')} ? ' is-invalid' : ''">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}"
+                                th:each="err : ${#fields.errors('name')}" th:text="${err}"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <input type="text" th:field="*{description}" class="form-control"
+                                th:classappend="${#fields.hasErrors('description')} ? ' is-invalid' : ''">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}"
+                                th:each="err : ${#fields.errors('description')}" th:text="${err}"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Percentage (%)</label>
+                            <input type="number" step="0.01" min="0" max="100" th:field="*{percentage}"
+                                class="form-control"
+                                th:classappend="${#fields.hasErrors('percentage')} ? ' is-invalid' : ''">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('percentage')}"
+                                th:each="err : ${#fields.errors('percentage')}" th:text="${err}"></div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Save Trophy</button>
+                            <a th:href="@{/games}" class="btn btn-outline-secondary">Cancel</a>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
