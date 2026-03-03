@@ -44,8 +44,8 @@ public class Game {
     @Column(nullable = false)
     private Integer playthrough;
 
-    @Size(max = 300)
-    @Column(length = 300)
+    @Size(max = 1000)
+    @Column(length = 1000)
     private String img;
 
     @OneToMany(mappedBy = "game")
