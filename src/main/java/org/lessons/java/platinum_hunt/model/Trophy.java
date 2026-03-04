@@ -1,6 +1,8 @@
 package org.lessons.java.platinum_hunt.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -41,11 +43,12 @@ public class Trophy {
     private Double percentage;
  
     @ManyToOne
+    @JsonIgnoreProperties("trophies")
     @JoinColumn(name = "trophy_grade_id", nullable = false)
     private TrophyGrade trophyGrade;
 
     @ManyToOne
-    @JsonIgnore
+    @JsonBackReference(value = "game-trophies")
     @JoinColumn(name = "game_id", nullable = false)
     private Game game;
 

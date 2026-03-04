@@ -2,6 +2,8 @@ package org.lessons.java.platinum_hunt.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -49,6 +51,7 @@ public class Game {
     private String img;
 
     @OneToMany(mappedBy = "game")
+    @JsonManagedReference(value = "game-trophies")
     private List<Trophy> trophies;
 
     public Game() {
