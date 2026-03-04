@@ -31,7 +31,7 @@ public class GameController {
     public String index(Model model) {
 
         model.addAttribute("games", gameService.findAll());
-        return "games/index.html";
+        return "games/index";
     }
 
     @GetMapping("/{id}")

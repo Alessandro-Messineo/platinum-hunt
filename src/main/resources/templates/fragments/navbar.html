@@ -12,13 +12,13 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/games}">Games</a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" th:href="@{/trophies}">Trophies</a>
-                </li>
+                </li> -->
             </ul>
             <div class="d-flex align-items-center gap-3">
                 <span sec:authorize="isAuthenticated()" class="text-white">
-                    Ciao, <strong sec:authentication="name"></strong>!
+                    Hello, <strong sec:authentication="name"></strong>!
                 </span>
                 <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
                     <button type="submit" class="btn btn-outline-danger btn-sm">Logout</button>
