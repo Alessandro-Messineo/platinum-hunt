@@ -11,6 +11,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "trophy_grades")
 public class TrophyGrade {
@@ -29,6 +31,7 @@ public class TrophyGrade {
     private String img;
 
     @OneToMany(mappedBy = "trophyGrade")
+    @JsonIgnore
     private List<Trophy> trophies;
 
     public TrophyGrade() {

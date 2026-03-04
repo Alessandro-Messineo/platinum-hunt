@@ -38,4 +38,8 @@ public class GameService {
        }
        gameRepository.delete(game);
     }
+
+    public boolean existsById(Integer id) {
+        return gameRepository.existsById(id);
+    }
 }
