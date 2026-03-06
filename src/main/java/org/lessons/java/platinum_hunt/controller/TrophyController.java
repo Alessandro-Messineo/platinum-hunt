@@ -46,7 +46,10 @@ public class TrophyController {
         }
 
         Trophy saved = trophyService.save(formTrophy);
-        return "redirect:/games/" + saved.getGame().getId();
+
+        Integer gameId = saved.getGame().getId();
+
+        return "redirect:/games/" + gameId;
     }
 
     @GetMapping("/edit/{id}")
@@ -72,14 +75,20 @@ public class TrophyController {
 
         Trophy saved = trophyService.save(formTrophy);
 
-        return "redirect:/games/" + saved.getGame().getId();
+        Integer gameId = saved.getGame().getId();
+
+        return "redirect:/games/" + gameId;
     }
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
 
+        Trophy trophy = trophyService.findById(id);
+
+        Integer gameId = trophy.getGame().getId();
+
         trophyService.delete(id);
         
-        return "redirect:/games";
+        return "redirect:/games/" + gameId;
     }
 }

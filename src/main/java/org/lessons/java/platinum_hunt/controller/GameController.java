@@ -1,6 +1,5 @@
 package org.lessons.java.platinum_hunt.controller;
 
-
 import org.lessons.java.platinum_hunt.model.Game;
 import org.lessons.java.platinum_hunt.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +15,10 @@ import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
 
-
-
-
-
 @Controller
 @RequestMapping("/games")
 public class GameController {
-    
+
     @Autowired
     private GameService gameService;
 
@@ -52,15 +47,18 @@ public class GameController {
 
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("game") Game formGame, BindingResult bindingResult) {
-        
-        if(bindingResult.hasErrors()){
+
+        if (bindingResult.hasErrors()) {
             return "games/form-game";
         }
 
         Game saved = gameService.save(formGame);
-        return "redirect:/games/" + saved.getId();
+
+        Integer gameId = saved.getId();
+
+        return "redirect:/games/" + gameId;
     }
-    
+
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
 
@@ -71,23 +69,26 @@ public class GameController {
     }
 
     @PostMapping("/edit/{id}")
-    public String update(@Valid @ModelAttribute("game") Game formGame, BindingResult bindingResult,Model model) {
-        
-        if(bindingResult.hasErrors()){
+    public String update(@Valid @ModelAttribute("game") Game formGame, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
             model.addAttribute("edit", true);
             return "games/form-game";
         }
 
         Game saved = gameService.save(formGame);
-        return "redirect:/games/" + saved.getId();
+
+        Integer gameId = saved.getId();
+
+        return "redirect:/games/" + gameId;
     }
-    
+
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
-       
+
         gameService.delete(id);
 
         return "redirect:/games";
     }
-    
+
 }
