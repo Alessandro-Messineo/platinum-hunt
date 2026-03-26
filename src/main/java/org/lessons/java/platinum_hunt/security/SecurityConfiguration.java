@@ -20,7 +20,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/api/**").permitAll()
                         .anyRequest().hasAuthority("ADMIN"))
-                .formLogin(Customizer.withDefaults());
+                .formLogin(form -> form
+                        .defaultSuccessUrl("/games", true));
         return http.build();
     }
 
