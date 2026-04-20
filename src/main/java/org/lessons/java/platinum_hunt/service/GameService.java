@@ -42,4 +42,8 @@ public class GameService {
     public boolean existsById(Integer id) {
         return gameRepository.existsById(id);
     }
+
+    public List<Game> findByName(String name){
+        return gameRepository.findByNameContainingIgnoreCase(name);
+    }
 }
