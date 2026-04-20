@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 @RequestMapping("/games")
@@ -26,6 +28,15 @@ public class GameController {
     public String index(Model model) {
 
         model.addAttribute("games", gameService.findAll());
+        return "games/index";
+    }
+
+    @GetMapping("/search")
+    public String search(Model model, @RequestParam  (required = false, defaultValue = "") String search) {
+
+        model.addAttribute("games", gameService.findByName(search));
+        model.addAttribute("search", search);
+
         return "games/index";
     }
 
