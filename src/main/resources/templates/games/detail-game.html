@@ -47,6 +47,11 @@
         <div class="mt-5">
             <h2 class="mb-3">Trophies</h2>
 
+            <div class="mb-3">
+                <a th:href="@{/trophies/create/{id}(id=${game.id})}" class="btn btn-success">
+                    Add Trophy
+                </a>
+            </div>
 
             <div th:if="${game.trophies.size() == 0}" class="alert alert-warning">
                 No trophies available for this game.
